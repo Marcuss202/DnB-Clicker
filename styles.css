@@ -1,0 +1,51 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 50px;
+}
+
+h1 {
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+}
+
+#dj-button {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle, #ff00ff, #7700aa);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #ff00ff;
+  transition: transform 0.1s;
+}
+
+#dj-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 30px #0ff;
+}
+
+#beats {
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+#upgrade {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background: #0ff;
+  color: #111;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+#upgrade:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
