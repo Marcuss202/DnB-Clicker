@@ -5,13 +5,9 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #111;
+  background: #363636;
   color: #fff;
   text-align: center;
-}
-
-.screen {
-  display: flex;
 }
 
 h1 {
@@ -21,11 +17,10 @@ h1 {
 }
 
 #dj-button {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   cursor: pointer;
   transition: transform 0.3s;
-
 }
 
 #dj-button:active {
@@ -33,36 +28,35 @@ h1 {
 }
 
 #beats {
-  font-size: 28px;
+  font-size: 36px;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   margin: 20px 0;
 }
 
-#upgrade {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 18px;
-  background: #0ff;
-  color: #111;
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
+#bgVideo {
+  position: fixed;
+  top: 0;
+  left: 200px;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
 }
-
-#upgrade:disabled {
-  background: #555;
-  cursor: not-allowed;
-}
-
 
 .leftScreenWrapper {
   width: 500px;
   height: 100vh;
   background: #1a1a1a;
+  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.667), 20px 0 0 #2c2c2c, 0 1px 0 #fff2 inset;
 }
 
 .rightScreenWrapper {
   width: 100%;
   padding: 24px;
+  margin: auto 0;
 }
 
 .deckSmallButtons {
@@ -103,11 +97,13 @@ h1 {
   border: 2px solid #444;
   background: linear-gradient(145deg, #232323 0%, #1a1a1a 100%);
   border-radius: 5px;
+  box-shadow: 0 6px 18px 0 #000a, 0 -4px 0 #444 inset, 0 1px 0 #fff2 inset;
   transition: box-shadow 0.1s, transform 0.1s;
   position: relative;
 }
 
 .bigButton:active {
+  box-shadow: 0 2px 6px 0 #000a, 0 -3px 0 #444 inset;
   transform: translateY(1px) scale(0.98);
 }
 
@@ -119,6 +115,12 @@ h1 {
   display: flex;
 }
 
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .knobContainer {
   display: flex;
   gap: 20px;
@@ -126,6 +128,7 @@ h1 {
   height: auto;
   position: relative;
   margin: 24px;
+  justify-content: center;
 }
 
 .knob {
@@ -139,7 +142,7 @@ h1 {
   transition: transform 0.2s ease;
 }
 
-.knob::after {
+#volumeKnob::after {
   content: '';
   width: 3px;
   height: 40%;
@@ -147,8 +150,60 @@ h1 {
   position: absolute;
   top: 10%;
   left: 50%;
-  transform: translateX(-50%) rotate(-90deg);
+  transform: translateX(-50%) rotate(var(--volumeKnob-rotation, 0deg));
   transform-origin: 50% 100%;
   border-radius: 3px;
 }
 
+.knobText {
+  translate: 0 60px;
+  font-size: 12px;
+  color: #fff;
+  pointer-events: none;
+}
+
+.levelText {
+  position: absolute;
+  top: 210px;
+  left: 35px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 5px #0ff;
+}
+
+.sliderContainer {
+  justify-content: center;
+  margin-top: 70px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.slider {
+  appearance: none;
+  width: 200px;
+  height: 15px;
+  border-radius: 5px;
+  background: #444;
+  outline: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  margin: 3px 5px 0 5px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: url('./images-videos/sliderKnob.png') no-repeat center center;
+  background-size: contain;
+  box-shadow: 0 3px 0  #000a;
+  cursor: pointer;
+  transform: translateY(-4px);
+}
+
+#settingsBtn {
+  margin-top: 35px;
+}
