@@ -6,18 +6,16 @@ const beatsDisplay = document.getElementById("beats");
 const djButton = document.getElementById("dj-button");
 const upgradeButton = document.getElementById("upgrade");
 
-// Click DJ button
 djButton.addEventListener("click", () => {
   beats += beatsPerClick;
   updateDisplay();
 });
 
-// Upgrade button
 upgradeButton.addEventListener("click", () => {
   if (beats >= upgradeCost) {
     beats -= upgradeCost;
     beatsPerClick++;
-    upgradeCost = Math.floor(upgradeCost * 1.5); // increase cost
+    upgradeCost = Math.floor(upgradeCost * 1.5); 
     updateDisplay();
   }
 });

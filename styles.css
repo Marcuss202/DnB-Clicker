@@ -1,32 +1,35 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #111;
   color: #fff;
   text-align: center;
-  padding: 50px;
+}
+
+.screen {
+  display: flex;
 }
 
 h1 {
   color: #0ff;
   text-shadow: 0 0 10px #0ff;
+  margin: 20px;
 }
 
 #dj-button {
   width: 200px;
   height: 200px;
-  border-radius: 50%;
-  border: none;
-  background: radial-gradient(circle, #ff00ff, #7700aa);
-  color: white;
-  font-size: 24px;
   cursor: pointer;
-  box-shadow: 0 0 20px #ff00ff;
-  transition: transform 0.1s;
+  transition: transform 0.3s;
+
 }
 
 #dj-button:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 30px #0ff;
+  transform: scale(0.95) rotate(180deg);
 }
 
 #beats {
@@ -49,3 +52,103 @@ h1 {
   background: #555;
   cursor: not-allowed;
 }
+
+
+.leftScreenWrapper {
+  width: 500px;
+  height: 100vh;
+  background: #1a1a1a;
+}
+
+.rightScreenWrapper {
+  width: 100%;
+  padding: 24px;
+}
+
+.deckSmallButtons {
+  width: 100%;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.deckBigButtons {
+  width: 100%;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.smallButton {
+  width: 100px;
+  height: 40px;
+  margin: 6px;
+  color: #f9f9f9;
+  border: 2px solid #444;
+  background-color: #1a1a1a;
+  background: linear-gradient(145deg, #232323 0%, #1a1a1a 100%);
+  border-radius: 5px;
+  box-shadow: 0 6px 18px 0 #000a, 0 -2px 0 #444 inset, 0 1px 0 #fff2 inset;
+  transition: box-shadow 0.1s, transform 0.1s;
+}
+
+.smallButton:active {
+    box-shadow: 0 2px 6px 0 #000a, 0 -1px 0 #444 inset;
+    transform: translateY(1px) scale(0.98);
+  }
+
+.bigButton {
+  width: 100px;
+  height: 100px;
+  margin: 6px;
+  color: #f9f9f9;
+  border: 2px solid #444;
+  background: linear-gradient(145deg, #232323 0%, #1a1a1a 100%);
+  border-radius: 5px;
+  transition: box-shadow 0.1s, transform 0.1s;
+  position: relative;
+}
+
+.bigButton:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.bigButtonRow {
+  margin: 6px;
+}
+
+.flex {
+  display: flex;
+}
+
+.knobContainer {
+  display: flex;
+  gap: 20px;
+  width: auto;
+  height: auto;
+  position: relative;
+  margin: 24px;
+}
+
+.knob {
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 50% 50%, rgb(41, 41, 41), #353535);
+  border-radius: 50%;
+  box-shadow: 0 6px 18px 0 #000a, 0 -4px 0 #444 inset, 0 1px 0 #fff2 inset;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.knob::after {
+  content: '';
+  width: 3px;
+  height: 40%;
+  background: #111;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%) rotate(-90deg);
+  transform-origin: 50% 100%;
+  border-radius: 3px;
+}
+

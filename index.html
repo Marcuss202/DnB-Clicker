@@ -2,16 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DJ Clicker</title>
-  <link rel="stylesheet" href="style.css">
+  <title>DnB Clicker</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="screen">
+    <div class="leftScreenWrapper">
 
-  <h1>🎧 DJ Clicker 🎶</h1>
-  <button id="dj-button">Drop the Beat</button>
-  <div id="beats">Beats: 0</div>
-  <button id="upgrade" disabled>Upgrade Beats (Cost: 50)</button>
+      <h1>🎧 DnB Clicker 🎶</h1>
 
-  <script src="script.js"></script>
+      <div class="deckSmallButtons">
+        <button class="smallButton">
+          <p>Button 1</p>
+        </button>
+        <button class="smallButton">
+          <p>Button 2</p>
+        </button>
+      </div>
+
+      <div class="deckBigButtons">
+
+        <div class="bigButtonRow">
+          <button class="bigButton">
+            <p>Button 3</p>
+          </button>
+          <button class="bigButton">
+            <p>Button 4</p>
+          </button>
+        </div>
+
+        <div class="bigButtonRow">
+          <button class="bigButton">
+            <p>Button 5</p>
+          </button>
+          <button class="bigButton">
+            <p>Button 6</p>
+          </button>
+        </div>
+        
+      </div>
+
+      <div class="knobContainer">
+        <div class="knob">
+        </div>
+        <div class="knob">
+        </div>
+      </div>
+      
+
+    </div>
+    
+    <div class="rightScreenWrapper">
+      
+      <img src="./images-videos/Vinyl.png" id="dj-button"></img>
+      <div id="beats">Beats: 0</div>
+      <button id="upgrade" disabled>Upgrade Beats (Cost: 50)</button>
+    </div>
+
+    <script src="script.js"></script>
+  </div>
 </body>
 </html>
