@@ -26,24 +26,25 @@
       <div class="deckBigButtons">
 
         <div class="bigButtonRow">
-          <p>LVL 1</p>
-          <button class="bigButton">
-            <p>Beats Upgrade</p>
-          </button>
-          <button class="bigButton">
-            <p>OTHER</p>
-          </button>
+          <div class="bigButtonCol">
+            <button class="bigButton"><p>Beats Upgrade</p></button>
+            <p class="bigButtonLvl">LVL 1</p>
+          </div>
+          <div class="bigButtonCol">
+            <button class="bigButton"><p>OTHER</p></button>
+            <p class="bigButtonLvl">LVL 1</p>
+          </div>
         </div>
-
         <div class="bigButtonRow">
-          <button class="bigButton">
-            <p>Button 5</p>
-          </button>
-          <button class="bigButton">
-            <p>Button 6</p>
-          </button>
+          <div class="bigButtonCol">
+            <button class="bigButton"><p>Button 5</p></button>
+            <p class="bigButtonLvl">LVL 1</p>
+          </div>
+          <div class="bigButtonCol">
+            <button class="bigButton"><p>Button 6</p></button>
+            <p class="bigButtonLvl">LVL 1</p>
+          </div>
         </div>
-        
       </div>
 
       <div class="knobContainer">
@@ -64,9 +65,10 @@
 
       <div class="sliderContainer flex">
         <p id="currentXp">0xp</p>
-  <input type="range" min="0" max="100" value="0" class="slider" id="xpSlider" disabled>
+        <input type="range" min="0" max="100" value="0" class="slider" id="xpSlider" disabled>
         <p id="nextLevelXp">100xp</p>
       </div>
+      <p id="levelText">LVL 1</p>
       
 
     </div>
@@ -90,7 +92,7 @@
 
 
       <div id="beats">0 Beats</div>
-      <img src="./images-videos/Vinyl.png" id="dj-button"></img>
+      <img src="./images-videos/broken-record-png.png" id="dj-button"></img>
 
       <video autoplay loop playsinline id="bgVideo">
         <source src="./images-videos/BackgroundVideo1.mp4" type="video/mp4">

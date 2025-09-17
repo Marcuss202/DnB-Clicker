@@ -1,6 +1,7 @@
 let beats = 0;
 let xp = 0;
 let nextLevelXP = 100;
+let Lvl = 1;
 
 let beatsPerClick = 1;
 let volumeLvl = 1;
@@ -15,6 +16,7 @@ const closeSettingsBtn = document.getElementById("closeSettingsBtn");
 const xpSlider = document.getElementById("xpSlider");
 const currentXp = document.getElementById("currentXp");
 const nextLevelXp = document.getElementById("nextLevelXp");
+const levelText = document.getElementById("levelText");
 
 const beatsDisplay = document.getElementById("beats");
 const djButton = document.getElementById("dj-button");
@@ -61,10 +63,7 @@ closeSettingsBtn.addEventListener("click", () => {
 djButton.addEventListener("click", () => {
   beats += beatsPerClick;
   if (xp >= nextLevelXP) {
-    nextLevelXP = Math.floor(nextLevelXP * 2.5);
-    xpSlider.max = nextLevelXP;
-    xpSlider.min = xp;
-    nextLevelXp.textContent = `${nextLevelXP}xp`;
+    levelUp();
   }
   xp += 1;
   updateDisplay();
@@ -73,7 +72,7 @@ djButton.addEventListener("click", () => {
 volumeKnob.addEventListener("click", () => {
   if (beats >= PerClickUpgradeCost) {
     beats -= PerClickUpgradeCost;
-    volumeKnob.style.setProperty('--volumeKnob-rotation', `${beatsPerClick * 20}deg`);
+    volumeKnob.style.setProperty('--volumeKnob-rotation', `${beatsPerClick * 18}deg`);
     volumeLvl++;
     console.log(volumeLvl);
     beatsPerClick++;
@@ -83,6 +82,17 @@ volumeKnob.addEventListener("click", () => {
 });
 
 
+
+function levelUp() {
+  Lvl++;
+  levelText.textContent = 'LVL ' + Lvl;
+  nextLevelXP = Math.floor(nextLevelXP * 2.5);
+  xpSlider.max = nextLevelXP;
+  xpSlider.min = xp;
+  nextLevelXp.textContent = `${nextLevelXP}xp`;
+
+  
+}
 
 function updateDisplay() {
   beatsDisplay.textContent = `${beats} Beats`;
