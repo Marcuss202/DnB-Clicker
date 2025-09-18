@@ -7,6 +7,10 @@ let beatsPerClick = 1;
 let volumeLvl = 1;
 let PerClickUpgradeCost = 10;
 
+let autoScratchTempo = 1000;
+let autoScratchPrice = 100;
+let autoScratchLvl = 1;
+
 let discs = [
   "./images-videos/broken-record-png.png",
   "./images-videos/Vinyl.png",
@@ -21,16 +25,23 @@ let backgrounds = [
   "./images-videos/BackgroundVideo4.mp4",
 ]
 
-
+//settings
 const settingsBtn = document.getElementById("settingsBtn");
 const settingsTab = document.getElementById("settingsTab");
 const closeSettingsBtn = document.getElementById("closeSettingsBtn");
 
+//xp and level
 const xpSlider = document.getElementById("xpSlider");
 const currentXp = document.getElementById("currentXp");
 const nextLevelXp = document.getElementById("nextLevelXp");
 const levelText = document.getElementById("levelText");
 const bgVideo = document.getElementById("bgVideo");
+
+//auto scratch upgrades
+const autoScratchButton = document.getElementById("autoScratchButton");
+const autoScratchCost = document.getElementById("autoScratchCost");
+const autoScratchLevelText = document.getElementById("autoScratchLevelText");
+
 
 const beatsDisplay = document.getElementById("beats");
 const djButton = document.getElementById("dj-button");
@@ -82,6 +93,21 @@ djButton.addEventListener("click", () => {
   updateDisplay();
 });
 
+autoScratchButton.addEventListener("click", () => {
+  if (beats >= autoScratchPrice) {
+    beats -= autoScratchPrice;
+    autoScratchLevelText.textContent = "LVL " + (autoScratchLvl + 1);
+    autoScratchCost.textContent = `${Math.floor(autoScratchPrice * Math.pow(1.5, volumeLvl))} Beats`;
+    setInterval(() => {
+      beats += 1;
+      xp += 1;
+      updateDisplay();
+      if (xp >= nextLevelXP) {
+        levelUp();
+      }
+    }, autoScratchTempo);
+  }
+});
 
 volumeKnob.addEventListener("click", () => {
   if (beats >= PerClickUpgradeCost) {
@@ -110,7 +136,6 @@ function levelUp() {
   }
   
   bgVideo.src = backgrounds[LevelUpIndex];
-  
   levelText.textContent = 'LVL ' + Lvl;
   
   nextLevelXP = Math.floor(nextLevelXP * 2.5);

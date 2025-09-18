@@ -100,6 +100,21 @@ h1 {
   margin: 0 3px;
 }
 
+.bigButtonCost {
+  position: absolute;
+  top: 240px;
+  font-size: 12px;
+  color: #0ff;
+}
+
+
+.bigButtonCost2 {
+  position: absolute;
+  top: 378px;
+  font-size: 12px;
+  color: #0ff;
+}
+
 
 .smallButton {
   width: 100px;
