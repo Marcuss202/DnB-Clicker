@@ -49,17 +49,14 @@
 
       <div class="knobContainer">
         <div id="volumeKnob" class="knob flexColumn">
-          <p id="volumeCost" class="knobText">Volume<br>10 BTs</p>
+          <p id="volumeCost" class="knobText">Gain<br><span class="priceText">10</span></p>
           <p id="volumeKnobLvl">01</p>
         </div>
         <div id="bassKnob" class="knob flexColumn">
-          <p id="bassLevel" class="knobText">Bass<br>10 BTs</p>
+          <p id="bassLevel" class="knobText">Tempo<br><span class="priceText">10</span></p>
         </div>
         <div class="knob flexColumn">
           <p class="knobText">Volume</p>
-        </div>
-        <div class="knob flexColumn">
-          <p class="knobText">Bass</p>
         </div>
       </div>
 
@@ -94,11 +91,11 @@
       <div id="beats">0 Beats</div>
       <img src="./images-videos/broken-record-png.png" id="dj-button"></img>
 
-      <video autoplay loop playsinline id="bgVideo">
-        <source src="./images-videos/BackgroundVideo1.mp4" type="video/mp4">
+      <video autoplay loop playsinline disabled id="bgVideo">
+        <source src="./images-videos/BackgroundVideo1.mp4" id="bgVideo" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-      <div class="bgOverlay"></div>
+      <div class="bgOverlay"></div> 
     </div>
 
     <script src="script.js"></script>

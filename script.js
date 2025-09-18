@@ -1,12 +1,25 @@
 let beats = 0;
 let xp = 0;
-let nextLevelXP = 100;
+let nextLevelXP = 10;
 let Lvl = 1;
 
 let beatsPerClick = 1;
 let volumeLvl = 1;
 let PerClickUpgradeCost = 10;
 
+let discs = [
+  "./images-videos/broken-record-png.png",
+  "./images-videos/Vinyl.png",
+  "./images-videos/SilverVinyl.png",
+  "./images-videos/goldVinyl.png",
+  "./images-videos/pinkVinyl.png",
+  ];
+
+let backgrounds = [
+  "./images-videos/BackgroundVideo1.mp4",
+  "./images-videos/BackgroundVideo2.mp4",
+  "./images-videos/BackgroundVideo4.mp4",
+]
 
 
 const settingsBtn = document.getElementById("settingsBtn");
@@ -17,6 +30,7 @@ const xpSlider = document.getElementById("xpSlider");
 const currentXp = document.getElementById("currentXp");
 const nextLevelXp = document.getElementById("nextLevelXp");
 const levelText = document.getElementById("levelText");
+const bgVideo = document.getElementById("bgVideo");
 
 const beatsDisplay = document.getElementById("beats");
 const djButton = document.getElementById("dj-button");
@@ -28,7 +42,6 @@ const bassKnob = document.getElementById("bassKnob");
 
 const volumeCost = document.getElementById("volumeCost");
 
-//SETTINGS
 document.addEventListener("DOMContentLoaded", () => {
   const musicVolumeSlider = document.getElementById("musicVolumeSlider");
   const musicVolumePercent = document.getElementById("musicVolumePercent");
@@ -85,7 +98,20 @@ volumeKnob.addEventListener("click", () => {
 
 function levelUp() {
   Lvl++;
+  let LevelUpIndex = Lvl -1;
+  if (LevelUpIndex >= discs.length) {
+    LevelUpIndex = discs.length - 1; 
+  }
+  djButton.src = discs[LevelUpIndex];
+
+  if (LevelUpIndex >= backgrounds.length) {
+    LevelUpIndex = backgrounds.length - 1;
+  }
+  
+  bgVideo.src = backgrounds[LevelUpIndex];
+  
   levelText.textContent = 'LVL ' + Lvl;
+  
   nextLevelXP = Math.floor(nextLevelXP * 2.5);
   xpSlider.max = nextLevelXP;
   xpSlider.min = xp;
@@ -96,7 +122,7 @@ function levelUp() {
 
 function updateDisplay() {
   beatsDisplay.textContent = `${beats} Beats`;
-  volumeCost.innerHTML = `Volume<br>${PerClickUpgradeCost} BTs`;
+  volumeCost.innerHTML = `Gain<br><span class="priceText">${PerClickUpgradeCost}</span>`;
 
   volumeKnobLvl.innerHTML = `${String(volumeLvl).padStart(2, '0')}`;
 

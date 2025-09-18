@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  user-select: none;
 }
 
 body {
@@ -32,6 +33,7 @@ h1 {
   font-size: 36px;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   margin: 20px 0;
+  
 }
 
 #bgVideo {
@@ -210,6 +212,11 @@ h1 {
   font-size: 12px;
   color: #fff;
   pointer-events: none;
+}
+
+.priceText {
+  font-size: 12px;
+  color: #0ff;
 }
 
 #levelText {
