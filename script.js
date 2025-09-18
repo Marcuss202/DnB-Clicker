@@ -82,6 +82,7 @@ djButton.addEventListener("click", () => {
   updateDisplay();
 });
 
+
 volumeKnob.addEventListener("click", () => {
   if (beats >= PerClickUpgradeCost) {
     beats -= PerClickUpgradeCost;
