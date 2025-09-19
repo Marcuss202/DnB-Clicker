@@ -7,6 +7,8 @@ let beatsPerClick = 1;
 let volumeLvl = 1;
 let PerClickUpgradeCost = 10;
 
+let tempoLvl = 1;
+
 let autoScratchTempo = 1000;
 let autoScratchPrice = 100;
 let autoScratchLvl = 1;
@@ -49,7 +51,8 @@ const upgradeButton = document.getElementById("upgrade");
 const volumeKnob = document.getElementById("volumeKnob");
 const volumeKnobLvl = document.getElementById("volumeKnobLvl");
 
-const bassKnob = document.getElementById("bassKnob");
+const tempoKnob = document.getElementById("tempoKnob");
+const tempoKnobLvl = document.getElementById("tempoKnobLvl");
 
 const volumeCost = document.getElementById("volumeCost");
 
@@ -120,6 +123,9 @@ volumeKnob.addEventListener("click", () => {
     updateDisplay();
   }
 });
+
+tempoKnob.addEventListener("click", () => {
+  if(beats >= )
 
 
 
