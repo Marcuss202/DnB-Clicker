@@ -325,3 +325,16 @@ h1 {
   justify-content: space-between;
   align-items: center;
 }
+
+.custom-tooltip {
+  background: #222;
+  color: #0ff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  box-shadow: 0 2px 12px #000a;
+  white-space: pre-line;
+  pointer-events: none;
+  position: fixed;
+  z-index: 2000;
+}

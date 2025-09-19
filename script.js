@@ -1,3 +1,4 @@
+
 let beats = 0;
 let xp = 0;
 let nextLevelXP = 10;
@@ -8,10 +9,11 @@ let volumeLvl = 1;
 let PerClickUpgradeCost = 10;
 
 let tempoLvl = 1;
+let tempoUpgradeCost = 100;
 
 let autoScratchTempo = 1000;
-let autoScratchPrice = 100;
-let autoScratchLvl = 1;
+let autoScratchPrice = 10;
+let autoScratchLvl = 0;
 
 let discs = [
   "./images-videos/broken-record-png.png",
@@ -53,6 +55,7 @@ const volumeKnobLvl = document.getElementById("volumeKnobLvl");
 
 const tempoKnob = document.getElementById("tempoKnob");
 const tempoKnobLvl = document.getElementById("tempoKnobLvl");
+const tempoCost = document.getElementById("tempoCost");
 
 const volumeCost = document.getElementById("volumeCost");
 
@@ -125,9 +128,16 @@ volumeKnob.addEventListener("click", () => {
 });
 
 tempoKnob.addEventListener("click", () => {
-  if(beats >= )
+  if(beats >= tempoUpgradeCost) {
+    beats -= tempoUpgradeCost;
+    tempoKnob.style.setProperty('--tempoKnob-rotation', `${tempoLvl * 18}deg`);
+    tempoLvl++;
+    autoScratchTempo = autoScratchTempo - 100;
+    tempoUpgradeCost = Math.floor(tempoUpgradeCost * 1.5);
+    updateDisplay();
+  }
 
-
+});
 
 function levelUp() {
   Lvl++;
@@ -152,11 +162,70 @@ function levelUp() {
   
 }
 
+// Tooltip logic
+function createTooltip(text, x, y) {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'custom-tooltip';
+  tooltip.textContent = text;
+  tooltip.style.position = 'fixed';
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+  tooltip.style.zIndex = 2000;
+  document.body.appendChild(tooltip);
+  return tooltip;
+}
+
+function removeTooltip(tooltip) {
+  if (tooltip) tooltip.remove();
+}
+
+function getUpgradeTooltip(type) {
+  if (type === 'volume') {
+    return `Volume Level: ${volumeLvl}\nBeats per click: ${beatsPerClick}\nUpgrade cost: ${PerClickUpgradeCost}`;
+  }
+  if (type === 'tempo') {
+    return `Tempo Level: ${tempoLvl}\nAuto-scratch speed: ${autoScratchTempo}ms\nUpgrade cost: ${tempoUpgradeCost}`;
+  }
+  if (type === 'autoScratch') {
+    return `Auto-Scratch Level: ${autoScratchLvl}\nCurrent cost: ${autoScratchPrice}\nCurrent speed: ${autoScratchTempo}ms`;
+  }
+  return '';
+}
+// Volume knob tooltip
+let volumeTooltip;
+volumeKnob.addEventListener('mouseenter', (e) => {
+  volumeTooltip = createTooltip(getUpgradeTooltip('volume'), e.clientX + 10, e.clientY + 10);
+});
+volumeKnob.addEventListener('mouseleave', () => {
+  removeTooltip(volumeTooltip);
+});
+
+// Tempo knob tooltip
+let tempoTooltip;
+tempoKnob.addEventListener('mouseenter', (e) => {
+  tempoTooltip = createTooltip(getUpgradeTooltip('tempo'), e.clientX + 10, e.clientY + 10);
+});
+tempoKnob.addEventListener('mouseleave', () => {
+  removeTooltip(tempoTooltip);
+});
+
+// AutoScratch button tooltip
+let autoScratchTooltip;
+autoScratchButton.addEventListener('mouseenter', (e) => {
+  autoScratchTooltip = createTooltip(getUpgradeTooltip('autoScratch'), e.clientX + 10, e.clientY + 10);
+});
+autoScratchButton.addEventListener('mouseleave', () => {
+  removeTooltip(autoScratchTooltip);
+});
+
+
 function updateDisplay() {
   beatsDisplay.textContent = `${beats} Beats`;
   volumeCost.innerHTML = `Gain<br><span class="priceText">${PerClickUpgradeCost}</span>`;
+  tempoCost.innerHTML = `Tempo<br><span class="priceText">${tempoUpgradeCost}</span>`;
 
   volumeKnobLvl.innerHTML = `${String(volumeLvl).padStart(2, '0')}`;
+  tempoKnobLvl.innerHTML = `${String(tempoLvl).padStart(2, '0')}`;
 
   if (xpSlider) {
     xpSlider.value = xp;
