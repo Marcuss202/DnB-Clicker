@@ -1,7 +1,7 @@
 
 let beats = 0;
 let xp = 0;
-let nextLevelXP = 10;
+let nextLevelXP = 5;
 let Lvl = 1;
 
 let beatsPerClick = 1;
@@ -31,7 +31,9 @@ let backgrounds = [
   "./images-videos/BasementVideo.mp4",
   "./images-videos/BedroomVideo.mp4",
   "./images-videos/ClubVideo.mp4",
+  "./images-videos/eventVideo.mp4",
   "./images-videos/BackgroundVideo4.mp4",
+  "./images-videos/SEE-YOU-DROP.mp4"
 ]
 
 let music = [
@@ -39,6 +41,8 @@ let music = [
   "./audio/HouseBeat.mp3",
   null,
   "./audio/Feel-The-Ground-Shake.mp3",
+  null,
+  null,
 ]
 
 let djScratches = [
