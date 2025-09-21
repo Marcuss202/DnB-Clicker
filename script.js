@@ -15,18 +15,37 @@ let autoScratchTempo = 1000;
 let autoScratchPrice = 10;
 let autoScratchLvl = 0;
 
+let scratchAudioVolume = 10;
+
 let discs = [
   "./images-videos/broken-record-png.png",
   "./images-videos/Vinyl.png",
   "./images-videos/SilverVinyl.png",
   "./images-videos/goldVinyl.png",
   "./images-videos/pinkVinyl.png",
+  "./images-videos/RubyVinyl.png",
+  "./images-videos/DiamondVinyl.png"
   ];
 
 let backgrounds = [
-  "./images-videos/BackgroundVideo1.mp4",
-  "./images-videos/BackgroundVideo2.mp4",
+  "./images-videos/BasementVideo.mp4",
+  "./images-videos/BedroomVideo.mp4",
+  "./images-videos/ClubVideo.mp4",
   "./images-videos/BackgroundVideo4.mp4",
+]
+
+let music = [
+  "./audio/ChillJazz.mp3",
+  "./audio/HouseBeat.mp3",
+  null,
+  "./audio/Feel-The-Ground-Shake.mp3",
+]
+
+let djScratches = [
+  "./audio/djScratch1.mp3",
+  "./audio/djScratch2.mp3",
+  "./audio/djScratch3.mp3",
+  "./audio/djScratch4.mp3"
 ]
 
 //settings
@@ -40,6 +59,7 @@ const currentXp = document.getElementById("currentXp");
 const nextLevelXp = document.getElementById("nextLevelXp");
 const levelText = document.getElementById("levelText");
 const bgVideo = document.getElementById("bgVideo");
+const bgAudio = document.getElementById("bgAudio");
 
 //auto scratch upgrades
 const autoScratchButton = document.getElementById("autoScratchButton");
@@ -62,10 +82,16 @@ const volumeCost = document.getElementById("volumeCost");
 document.addEventListener("DOMContentLoaded", () => {
   const musicVolumeSlider = document.getElementById("musicVolumeSlider");
   const musicVolumePercent = document.getElementById("musicVolumePercent");
+  const sfxVolumeSlider = document.getElementById("sfxVolumeSlider");
+  const sfxVolumePercent = document.getElementById("sfxVolumePercent");
   const bgVideo = document.getElementById("bgVideo");
-  if (bgVideo) {
+  if (bgVideo && bgAudio) {
     bgVideo.volume = musicVolumeSlider.value / 100;
+    bgAudio.volume = musicVolumeSlider.value / 100;
     musicVolumePercent.textContent = `${musicVolumeSlider.value}%`;
+
+    airHorn = new Audio("./audio/dj-airhorn.mp3");
+    reVerse = new Audio("./audio/re-verse-dj.mp3");
 
     function enableVideoSound() {
       bgVideo.muted = false;
@@ -76,7 +102,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     musicVolumeSlider.addEventListener("input", (e) => {
       bgVideo.volume = e.target.value / 100;
+      bgAudio.volume = e.target.value / 100;
       musicVolumePercent.textContent = `${e.target.value}%`;
+    });
+
+    sfxVolumeSlider.addEventListener("input", (e) => {
+      scratchAudioVolume = e.target.value;
+      airHorn.volume = (e.target.value / 100)+0.2;
+      reVerse.volume = (e.target.value / 100)+0.2;
+      sfxVolumePercent.textContent = `${e.target.value}%`;
     });
   }
 });
@@ -92,6 +126,7 @@ closeSettingsBtn.addEventListener("click", () => {
 
 djButton.addEventListener("click", () => {
   beats += beatsPerClick;
+  scratchAudio();
   if (xp >= nextLevelXP) {
     levelUp();
   }
@@ -99,8 +134,16 @@ djButton.addEventListener("click", () => {
   updateDisplay();
 });
 
+function scratchAudio() {
+  const randomIndex = Math.floor(Math.random() * djScratches.length);
+  const scratchSound = new Audio(djScratches[randomIndex]);
+  scratchSound.volume = scratchAudioVolume /100;
+  scratchSound.play();
+}
+
 autoScratchButton.addEventListener("click", () => {
   if (beats >= autoScratchPrice) {
+    airHorn.play();
     beats -= autoScratchPrice;
     autoScratchLevelText.textContent = "LVL " + (autoScratchLvl + 1);
     autoScratchCost.textContent = `${Math.floor(autoScratchPrice * Math.pow(1.5, volumeLvl))} Beats`;
@@ -141,6 +184,7 @@ tempoKnob.addEventListener("click", () => {
 
 function levelUp() {
   Lvl++;
+  reVerse.play();
   let LevelUpIndex = Lvl -1;
   if (LevelUpIndex >= discs.length) {
     LevelUpIndex = discs.length - 1; 
@@ -152,6 +196,15 @@ function levelUp() {
   }
   
   bgVideo.src = backgrounds[LevelUpIndex];
+
+  if (LevelUpIndex >= music.length) {
+    LevelUpIndex = music.length - 1;
+  }
+  bgAudio.pause();
+  bgAudio.currentTime = 0;
+  bgAudio.src = music[LevelUpIndex];
+  bgAudio.play();
+
   levelText.textContent = 'LVL ' + Lvl;
   
   nextLevelXP = Math.floor(nextLevelXP * 2.5);
@@ -186,9 +239,6 @@ function getUpgradeTooltip(type) {
   if (type === 'tempo') {
     return `Tempo Level: ${tempoLvl}\nAuto-scratch speed: ${autoScratchTempo}ms\nUpgrade cost: ${tempoUpgradeCost}`;
   }
-  if (type === 'autoScratch') {
-    return `Auto-Scratch Level: ${autoScratchLvl}\nCurrent cost: ${autoScratchPrice}\nCurrent speed: ${autoScratchTempo}ms`;
-  }
   return '';
 }
 // Volume knob tooltip
@@ -209,14 +259,6 @@ tempoKnob.addEventListener('mouseleave', () => {
   removeTooltip(tempoTooltip);
 });
 
-// AutoScratch button tooltip
-let autoScratchTooltip;
-autoScratchButton.addEventListener('mouseenter', (e) => {
-  autoScratchTooltip = createTooltip(getUpgradeTooltip('autoScratch'), e.clientX + 10, e.clientY + 10);
-});
-autoScratchButton.addEventListener('mouseleave', () => {
-  removeTooltip(autoScratchTooltip);
-});
 
 
 function updateDisplay() {

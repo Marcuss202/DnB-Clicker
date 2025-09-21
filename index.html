@@ -86,9 +86,17 @@
           <button id="closeSettingsBtn">X</button>
         </div>
         <div class="settingsContent">
-          <p>Music:</p>
-          <input type="range" min="0" max="100" value="10" class="slider" id="musicVolumeSlider">
-          <p id="musicVolumePercent">10%</p>
+          <div class="backgroundMusic">
+            <p>Music:</p>
+            <input type="range" min="0" max="100" value="30" class="slider" id="musicVolumeSlider">
+            <p id="musicVolumePercent">30%</p>
+          </div>
+          <div class="sfxVolume">
+            <p>SFX:</p>
+            <input type="range" min="0" max="100" value="30" class="slider" id="sfxVolumeSlider">
+            <p id="sfxVolumePercent">30%</p>
+          </div>
+          
         </div>
       </div>
 
@@ -98,11 +106,11 @@
       <img src="./images-videos/broken-record-png.png" id="dj-button"></img>
 
       <video autoplay loop playsinline disabled id="bgVideo">
-        <source src="./images-videos/BackgroundVideo1.mp4" id="bgVideo" type="video/mp4">
+        <source src="./images-videos/BasementVideo.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-      <audio id="bgAudio" loop>
-        <source src="./audio/Feel-The-Ground-Shake.mp3" type="audio/mpeg">
+      <audio autoplay id="bgAudio" loop>
+        <source src="./audio/ChillJazz.mp3" id="bgAudio" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
       <div class="bgOverlay"></div> 

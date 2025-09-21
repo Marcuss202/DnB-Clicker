@@ -40,11 +40,9 @@ h1 {
   position: fixed;
   top: 0;
   left: 200px;
-  min-width: 100vw;
-  min-height: 100vh;
-  width: auto;
+  width: 100vw;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
   z-index: -1;
   pointer-events: none;
 }
