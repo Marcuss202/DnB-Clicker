@@ -27,14 +27,14 @@
 
         <div class="bigButtonRow">
           <div class="bigButtonCol">
-            <button id="autoScratchButton" class="bigButton"><p>Auto scratch</p></button>
+            <button id="autoScratchButton" class="bigButton"><p>Auto scratch<br>(Auto Clicker)</p></button>
             <p id="autoScratchLevelText" class="bigButtonLvl">LVL 0</p>
             <p id="autoScratchCost" class="bigButtonCost">100 Beats</p>
           </div>
           <div class="bigButtonCol">
-            <button class="bigButton"><p>OTHER</p></button>
-            <p class="bigButtonLvl">LVL 1</p>
-            <p class="bigButtonCost">100 Beats</p>
+            <button id="bassDropButton" class="bigButton"><p>Bass Drop<br>(Chance)</p></button>
+            <p id="bassDropLevelText" class="bigButtonLvl">LVL 1</p>
+            <p id="bassDropCost" class="bigButtonCost">100 Beats</p>
           </div>
         </div>
         <div class="bigButtonRow">
@@ -53,15 +53,16 @@
 
       <div class="knobContainer">
         <div id="volumeKnob" class="knob flexColumn">
-          <p id="volumeCost" class="knobText">Gain<br><span class="priceText">10</span></p>
+          <p id="volumeCost" class="knobText">Gain<br><span class="priceText">20</span></p>
           <p id="volumeKnobLvl">01</p>
         </div>
         <div id="tempoKnob" class="knob flexColumn">
-          <p id="tempoCost" class="knobText">Tempo<br><span class="priceText">10</span></p>
+          <p id="tempoCost" class="knobText">Tempo<br><span class="priceText">100</span></p>
           <p id="tempoKnobLvl">01</p>
         </div>
-        <div class="knob flexColumn">
-          <p class="knobText">Volume</p>
+        <div id="eqKnob" class="knob flexColumn">
+          <p id="eqCost" class="knobText">EQ<br><span class="priceText">50</span></p>
+          <p id="eqKnobLvl">01</p>
         </div>
       </div>
 
@@ -100,9 +101,13 @@
         </div>
       </div>
 
+      <div id="doubleModeContainer">
+        <span id="doubleModeText">2x Mode!</span>
+        <div id="doubleModeBar"><div id="doubleModeFill"></div></div>
+      </div>
 
+      <div id="bassDropText">BASS DROP<br>ACTIVATED!<br><span id="bassDropTextInfo">(2x points for 5s)</span></div>
       <div id="beats">0 Beats</div>
-      <div id="floatingPlus"></div>
       <img src="./images-videos/broken-record-png.png" id="dj-button"></img>
 
       <video autoplay loop playsinline disabled id="bgVideo">

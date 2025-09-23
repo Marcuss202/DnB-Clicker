@@ -6,10 +6,17 @@ let Lvl = 1;
 
 let beatsPerClick = 1;
 let volumeLvl = 1;
-let PerClickUpgradeCost = 10;
+let PerClickUpgradeCost = 20;
 
 let tempoLvl = 1;
 let tempoUpgradeCost = 100;
+
+let eqLvl = 1;
+let eqUpgradeCost = 50;
+let eqTime = 5000;
+
+let bassDropChance = 0.05;
+let bassDropTimeout = false;
 
 let autoScratchTempo = 1000;
 let autoScratchPrice = 10;
@@ -70,7 +77,6 @@ const autoScratchButton = document.getElementById("autoScratchButton");
 const autoScratchCost = document.getElementById("autoScratchCost");
 const autoScratchLevelText = document.getElementById("autoScratchLevelText");
 
-
 const beatsDisplay = document.getElementById("beats");
 const djButton = document.getElementById("dj-button");
 const upgradeButton = document.getElementById("upgrade");
@@ -82,6 +88,11 @@ const tempoKnobLvl = document.getElementById("tempoKnobLvl");
 const tempoCost = document.getElementById("tempoCost");
 
 const volumeCost = document.getElementById("volumeCost");
+
+const eqKnob = document.getElementById("eqKnob");
+const eqKnobLvl = document.getElementById("eqKnobLvl");
+const eqCost = document.getElementById("eqCost");
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const musicVolumeSlider = document.getElementById("musicVolumeSlider");
@@ -135,6 +146,9 @@ djButton.addEventListener("click", () => {
     levelUp();
   }
   xp += 1;
+  if (Math.random() < bassDropChance) {
+    activateBassDrop();
+  };
   updateDisplay();
 });
 
@@ -143,6 +157,19 @@ function scratchAudio() {
   const scratchSound = new Audio(djScratches[randomIndex]);
   scratchSound.volume = scratchAudioVolume /100;
   scratchSound.play();
+}
+
+
+function activateBassDrop() {
+  reVerse.play();
+  if (!bassDropTimeout) {
+    bassDropTimeout = true;
+    bassDropText.style.display = "block";
+    setTimeout(() => {
+      bassDropText.style.display = "none";
+      bassDropTimeout = false;
+    }, eqTime * 2);
+  }
 }
 
 autoScratchButton.addEventListener("click", () => {
@@ -184,6 +211,17 @@ tempoKnob.addEventListener("click", () => {
     updateDisplay();
   }
 
+});
+
+eqKnob.addEventListener("click", () => {
+  if(beats >= eqUpgradeCost) {
+    beats -= eqUpgradeCost;
+    eqKnob.style.setProperty('--eqKnob-rotation', `${eqLvl * 18}deg`);
+    eqLvl++;
+    eqTime = eqTime + 1000;
+    eqUpgradeCost = Math.floor(eqUpgradeCost * 1.5);
+    updateDisplay();
+  }
 });
 
 function levelUp() {
@@ -243,6 +281,9 @@ function getUpgradeTooltip(type) {
   if (type === 'tempo') {
     return `Tempo Level: ${tempoLvl}\nAuto-scratch speed: ${autoScratchTempo}ms\nUpgrade cost: ${tempoUpgradeCost}`;
   }
+  if (type === 'eq') {
+    return `EQ Level: ${eqLvl}\nEQ Effect Duration: ${eqTime/1000}s\nUpgrade cost: ${eqUpgradeCost}`;
+  }
   return '';
 }
 // Volume knob tooltip
@@ -263,15 +304,25 @@ tempoKnob.addEventListener('mouseleave', () => {
   removeTooltip(tempoTooltip);
 });
 
+let eqTooltip;
+eqKnob.addEventListener('mouseenter', (e) => {
+  eqTooltip = createTooltip(getUpgradeTooltip('eq'), e.clientX + 10, e.clientY + 10);
+});
+eqKnob.addEventListener('mouseleave', () => {
+  removeTooltip(eqTooltip);
+});
+
 
 
 function updateDisplay() {
   beatsDisplay.textContent = `${beats} Beats`;
   volumeCost.innerHTML = `Gain<br><span class="priceText">${PerClickUpgradeCost}</span>`;
   tempoCost.innerHTML = `Tempo<br><span class="priceText">${tempoUpgradeCost}</span>`;
+  eqCost.innerHTML = `EQ<br><span class="priceText">${eqUpgradeCost}</span>`;
 
   volumeKnobLvl.innerHTML = `${String(volumeLvl).padStart(2, '0')}`;
   tempoKnobLvl.innerHTML = `${String(tempoLvl).padStart(2, '0')}`;
+  eqKnobLvl.innerHTML = `${String(eqLvl).padStart(2, '0')}`;
 
   if (xpSlider) {
     xpSlider.value = xp;
