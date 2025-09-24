@@ -16,7 +16,7 @@ let eqLvl = 1;
 let eqUpgradeCost = 50;
 let eqTime = 5000;
 
-let bassDropChance = 0.01;
+let bassDropChance = 0.10;
 let bassDropTimeout = false;
 
 let autoScratchTempo = 1000;
@@ -65,6 +65,7 @@ const settingsBtn = document.getElementById("settingsBtn");
 const settingsTab = document.getElementById("settingsTab");
 const closeSettingsBtn = document.getElementById("closeSettingsBtn");
 
+
 //xp and level
 const xpSlider = document.getElementById("xpSlider");
 const currentXp = document.getElementById("currentXp");
@@ -94,6 +95,8 @@ const volumeCost = document.getElementById("volumeCost");
 const eqKnob = document.getElementById("eqKnob");
 const eqKnobLvl = document.getElementById("eqKnobLvl");
 const eqCost = document.getElementById("eqCost");
+
+const leftScreenWrapper = document.querySelector('.leftScreenWrapper');
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -150,7 +153,7 @@ djButton.addEventListener("click", () => {
   xp += 1;
   if (Math.random() < bassDropChance && !bassDropTimeout) {
     activateBassDrop();
-  };
+  }
   updateDisplay();
 });
 
@@ -172,6 +175,8 @@ function activateBassDrop() {
   bassDropText.textContent = "BASS DROP!";
   doubleModeContainer.style.display = "none";
   doubleModeFill.style.width = "100%";
+  leftScreenWrapper.style.pointerEvents = "none";
+  
 
   setTimeout(() => {
     bassDropText.style.display = "none";
@@ -196,6 +201,7 @@ function activateBassDrop() {
 
     setTimeout(() => {
       beatsPerClick = baseBeatsPerClick;
+      leftScreenWrapper.style.pointerEvents = "all";
       doubleModeContainer.style.display = "none";
       bassDropTimeout = false;
     }, eqTime);
@@ -226,7 +232,9 @@ volumeKnob.addEventListener("click", () => {
     volumeKnob.style.setProperty('--volumeKnob-rotation', `${beatsPerClick * 18}deg`);
     volumeLvl++;
     console.log(volumeLvl);
+    
     beatsPerClick++;
+    
     PerClickUpgradeCost = Math.floor(PerClickUpgradeCost * 1.5); 
     updateDisplay();
   }

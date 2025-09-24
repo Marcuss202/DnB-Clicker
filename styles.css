@@ -58,12 +58,15 @@ h1 {
   z-index: -1;
 }
 
+
 .leftScreenWrapper {
   width: 500px;
   height: 100vh;
   background: #1a1a1a;
+  pointer-events: all;
   box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.667), 20px 0 0 #2c2c2c, 0 1px 0 #fff2 inset;
 }
+
 
 .rightScreenWrapper {
   width: 100%;
