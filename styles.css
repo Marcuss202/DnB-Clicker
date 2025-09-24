@@ -47,7 +47,7 @@ h1 {
   pointer-events: none;
 }
 
-.bgOverlay {
+#bgOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -355,10 +355,10 @@ h1 {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   color: rgb(240, 240, 219);
   text-shadow: 0 0 30px #ff0, 0 0 40px rgb(245, 52, 4);
-  animation: bassDropFlash 4s ease-in forwards;
+  animation: bassDropFlash 3s ease-in forwards;
   pointer-events: none;
   position: fixed;
-  top: 20%;
+  top: 50%;
   left: calc(50% + 190px);
   transform: translate(-50%, -50%);
   z-index: 2000;
@@ -389,12 +389,12 @@ h1 {
 
 #doubleModeContainer {
   position: fixed;
-  top: 24px;
-  left: calc(50% + 200px);
+  bottom: 24px;
+  left: calc((100vw + 350px)/2);
   transform: translateX(-50%);
   z-index: 1000;
   text-align: center;
-  display: block;
+  display: none;
 }
 
 #doubleModeText {

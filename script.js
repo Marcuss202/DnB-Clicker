@@ -5,6 +5,7 @@ let nextLevelXP = 5;
 let Lvl = 1;
 
 let beatsPerClick = 1;
+let baseBeatsPerClick = 1;
 let volumeLvl = 1;
 let PerClickUpgradeCost = 20;
 
@@ -15,7 +16,7 @@ let eqLvl = 1;
 let eqUpgradeCost = 50;
 let eqTime = 5000;
 
-let bassDropChance = 0.05;
+let bassDropChance = 0.01;
 let bassDropTimeout = false;
 
 let autoScratchTempo = 1000;
@@ -71,6 +72,7 @@ const nextLevelXp = document.getElementById("nextLevelXp");
 const levelText = document.getElementById("levelText");
 const bgVideo = document.getElementById("bgVideo");
 const bgAudio = document.getElementById("bgAudio");
+const bgOverlay = document.getElementById("bgOverlay");
 
 //auto scratch upgrades
 const autoScratchButton = document.getElementById("autoScratchButton");
@@ -146,7 +148,7 @@ djButton.addEventListener("click", () => {
     levelUp();
   }
   xp += 1;
-  if (Math.random() < bassDropChance) {
+  if (Math.random() < bassDropChance && !bassDropTimeout) {
     activateBassDrop();
   };
   updateDisplay();
@@ -161,15 +163,44 @@ function scratchAudio() {
 
 
 function activateBassDrop() {
+  if (bassDropTimeout) return;
+  bassDropTimeout = true;
   reVerse.play();
-  if (!bassDropTimeout) {
-    bassDropTimeout = true;
-    bassDropText.style.display = "block";
+
+  bgOverlay.style.zIndex = 1500;
+  bassDropText.style.display = "block";
+  bassDropText.textContent = "BASS DROP!";
+  doubleModeContainer.style.display = "none";
+  doubleModeFill.style.width = "100%";
+
+  setTimeout(() => {
+    bassDropText.style.display = "none";
+    bgOverlay.style.zIndex = -1;
+    doubleModeContainer.style.display = "block";
+
+    const startTime = Date.now();
+    function animateFill() {
+      const elapsed = Date.now() - startTime;
+      const percent = Math.max(0, 100 - (elapsed / eqTime) * 100);
+      doubleModeFill.style.width = percent + "%";
+      if (elapsed < eqTime) {
+        requestAnimationFrame(animateFill);
+      } else {
+        doubleModeFill.style.width = "0%";
+      }
+    }
+    animateFill();
+  
+    baseBeatsPerClick = beatsPerClick;
+    beatsPerClick = beatsPerClick * 2;
+
     setTimeout(() => {
-      bassDropText.style.display = "none";
+      beatsPerClick = baseBeatsPerClick;
+      doubleModeContainer.style.display = "none";
       bassDropTimeout = false;
-    }, eqTime * 2);
-  }
+    }, eqTime);
+
+  }, 1000);
 }
 
 autoScratchButton.addEventListener("click", () => {
