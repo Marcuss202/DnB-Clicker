@@ -1,3 +1,8 @@
+.knob.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 * {
   padding: 0;
   margin: 0;

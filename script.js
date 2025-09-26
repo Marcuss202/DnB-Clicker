@@ -20,7 +20,7 @@ let bassDropChance = 0.10;
 let bassDropTimeout = false;
 
 let autoScratchTempo = 1000;
-let autoScratchPrice = 10;
+let autoScratchPrice = 100;
 let autoScratchLvl = 0;
 
 let scratchAudioVolume = 10;
@@ -179,9 +179,12 @@ function activateBassDrop() {
   
 
   setTimeout(() => {
-    bassDropText.style.display = "none";
-    bgOverlay.style.zIndex = -1;
-    doubleModeContainer.style.display = "block";
+  bassDropText.style.display = "none";
+  bgOverlay.style.zIndex = -1;
+  doubleModeContainer.style.display = "block";
+  volumeKnob.classList.add("disabled");
+  tempoKnob.classList.add("disabled");
+  eqKnob.classList.add("disabled");
 
     const startTime = Date.now();
     function animateFill() {
@@ -201,7 +204,9 @@ function activateBassDrop() {
 
     setTimeout(() => {
       beatsPerClick = baseBeatsPerClick;
-      leftScreenWrapper.style.pointerEvents = "all";
+      volumeKnob.classList.remove("disabled");
+      tempoKnob.classList.remove("disabled");
+      eqKnob.classList.remove("disabled");
       doubleModeContainer.style.display = "none";
       bassDropTimeout = false;
     }, eqTime);
@@ -287,7 +292,7 @@ function levelUp() {
   bgAudio.play();
 
   levelText.textContent = 'LVL ' + Lvl;
-  
+  ///tu lohs atstaji kodu vala :)
   nextLevelXP = Math.floor(nextLevelXP * 2.5);
   xpSlider.max = nextLevelXP;
   xpSlider.min = xp;
