@@ -169,6 +169,7 @@ function scratchAudio() {
 bassDropButton.addEventListener("click", () => {
   if (beats >= bassDropPrice) {
     beats -= bassDropPrice;
+    airHorn.play();
     bassDropChance += 0.01;
     bassDropPrice = Math.floor(bassDropPrice * 2);
     bassDropLevelText.textContent = "LVL " + (Math.floor(bassDropChance * 100));
@@ -231,7 +232,7 @@ autoScratchButton.addEventListener("click", () => {
     airHorn.play();
     beats -= autoScratchPrice;
     autoScratchLevelText.textContent = "LVL " + (autoScratchLvl + 1);
-    autoScratchCost.textContent = `${Math.floor(autoScratchPrice * Math.pow(1.5, volumeLvl))} Beats`;
+    autoScratchCost.textContent = `${Math.floor(autoScratchPrice * 2)} Beats`;
     setInterval(() => {
       beats += 1;
       xp += 1;
