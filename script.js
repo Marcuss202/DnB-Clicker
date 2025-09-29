@@ -60,13 +60,11 @@ let djScratches = [
   "./audio/djScratch4.mp3"
 ]
 
-//settings
 const settingsBtn = document.getElementById("settingsBtn");
 const settingsTab = document.getElementById("settingsTab");
 const closeSettingsBtn = document.getElementById("closeSettingsBtn");
 
 
-//xp and level
 const xpSlider = document.getElementById("xpSlider");
 const currentXp = document.getElementById("currentXp");
 const nextLevelXp = document.getElementById("nextLevelXp");
@@ -75,7 +73,6 @@ const bgVideo = document.getElementById("bgVideo");
 const bgAudio = document.getElementById("bgAudio");
 const bgOverlay = document.getElementById("bgOverlay");
 
-//auto scratch upgrades
 const autoScratchButton = document.getElementById("autoScratchButton");
 const autoScratchCost = document.getElementById("autoScratchCost");
 const autoScratchLevelText = document.getElementById("autoScratchLevelText");
@@ -175,7 +172,6 @@ function activateBassDrop() {
   bassDropText.textContent = "BASS DROP!";
   doubleModeContainer.style.display = "none";
   doubleModeFill.style.width = "100%";
-  leftScreenWrapper.style.pointerEvents = "none";
   
 
   setTimeout(() => {
@@ -292,7 +288,6 @@ function levelUp() {
   bgAudio.play();
 
   levelText.textContent = 'LVL ' + Lvl;
-  ///tu lohs atstaji kodu vala :)
   nextLevelXP = Math.floor(nextLevelXP * 2.5);
   xpSlider.max = nextLevelXP;
   xpSlider.min = xp;
@@ -301,7 +296,6 @@ function levelUp() {
   
 }
 
-// Tooltip logic
 function createTooltip(text, x, y) {
   const tooltip = document.createElement('div');
   tooltip.className = 'custom-tooltip';
@@ -330,7 +324,6 @@ function getUpgradeTooltip(type) {
   }
   return '';
 }
-// Volume knob tooltip
 let volumeTooltip;
 volumeKnob.addEventListener('mouseenter', (e) => {
   volumeTooltip = createTooltip(getUpgradeTooltip('volume'), e.clientX + 10, e.clientY + 10);
@@ -339,7 +332,6 @@ volumeKnob.addEventListener('mouseleave', () => {
   removeTooltip(volumeTooltip);
 });
 
-// Tempo knob tooltip
 let tempoTooltip;
 tempoKnob.addEventListener('mouseenter', (e) => {
   tempoTooltip = createTooltip(getUpgradeTooltip('tempo'), e.clientX + 10, e.clientY + 10);
