@@ -1,7 +1,7 @@
 
 let beats = 0;
 let xp = 0;
-let nextLevelXP = 5;
+let nextLevelXP = 15;
 let Lvl = 1;
 
 let beatsPerClick = 1;
@@ -16,11 +16,12 @@ let eqLvl = 1;
 let eqUpgradeCost = 50;
 let eqTime = 5000;
 
-let bassDropChance = 0.10;
+let bassDropChance = 0.01;
 let bassDropTimeout = false;
+let bassDropPrice = 20;
 
 let autoScratchTempo = 1000;
-let autoScratchPrice = 100;
+let autoScratchPrice = 20;
 let autoScratchLvl = 0;
 
 let scratchAudioVolume = 10;
@@ -93,6 +94,10 @@ const eqKnob = document.getElementById("eqKnob");
 const eqKnobLvl = document.getElementById("eqKnobLvl");
 const eqCost = document.getElementById("eqCost");
 
+const bassDropButton = document.getElementById("bassDropButton");
+const bassDropCost = document.getElementById("bassDropCost");
+const bassDropLevelText = document.getElementById("bassDropLevelText");
+
 const leftScreenWrapper = document.querySelector('.leftScreenWrapper');
 
 
@@ -161,53 +166,64 @@ function scratchAudio() {
   scratchSound.play();
 }
 
+bassDropButton.addEventListener("click", () => {
+  if (beats >= bassDropPrice) {
+    beats -= bassDropPrice;
+    bassDropChance += 0.01;
+    bassDropPrice = Math.floor(bassDropPrice * 2);
+    bassDropLevelText.textContent = "LVL " + (Math.floor(bassDropChance * 100));
+    bassDropCost.textContent = `${bassDropPrice} Beats`;
+    updateDisplay();
+  }
+});
+
 
 function activateBassDrop() {
-  if (bassDropTimeout) return;
-  bassDropTimeout = true;
-  reVerse.play();
+    if (bassDropTimeout) return;
+    bassDropTimeout = true;
+    reVerse.play();
 
-  bgOverlay.style.zIndex = 1500;
-  bassDropText.style.display = "block";
-  bassDropText.textContent = "BASS DROP!";
-  doubleModeContainer.style.display = "none";
-  doubleModeFill.style.width = "100%";
-  
-
-  setTimeout(() => {
-  bassDropText.style.display = "none";
-  bgOverlay.style.zIndex = -1;
-  doubleModeContainer.style.display = "block";
-  volumeKnob.classList.add("disabled");
-  tempoKnob.classList.add("disabled");
-  eqKnob.classList.add("disabled");
-
-    const startTime = Date.now();
-    function animateFill() {
-      const elapsed = Date.now() - startTime;
-      const percent = Math.max(0, 100 - (elapsed / eqTime) * 100);
-      doubleModeFill.style.width = percent + "%";
-      if (elapsed < eqTime) {
-        requestAnimationFrame(animateFill);
-      } else {
-        doubleModeFill.style.width = "0%";
-      }
-    }
-    animateFill();
-  
-    baseBeatsPerClick = beatsPerClick;
-    beatsPerClick = beatsPerClick * 2;
+    bgOverlay.style.zIndex = 1500;
+    bassDropText.style.display = "block";
+    bassDropText.textContent = "BASS DROP!";
+    doubleModeContainer.style.display = "none";
+    doubleModeFill.style.width = "100%";
+    
 
     setTimeout(() => {
-      beatsPerClick = baseBeatsPerClick;
-      volumeKnob.classList.remove("disabled");
-      tempoKnob.classList.remove("disabled");
-      eqKnob.classList.remove("disabled");
-      doubleModeContainer.style.display = "none";
-      bassDropTimeout = false;
-    }, eqTime);
+    bassDropText.style.display = "none";
+    bgOverlay.style.zIndex = -1;
+    doubleModeContainer.style.display = "block";
+    volumeKnob.classList.add("disabled");
+    tempoKnob.classList.add("disabled");
+    eqKnob.classList.add("disabled");
 
-  }, 1000);
+      const startTime = Date.now();
+      function animateFill() {
+        const elapsed = Date.now() - startTime;
+        const percent = Math.max(0, 100 - (elapsed / eqTime) * 100);
+        doubleModeFill.style.width = percent + "%";
+        if (elapsed < eqTime) {
+          requestAnimationFrame(animateFill);
+        } else {
+          doubleModeFill.style.width = "0%";
+        }
+      }
+      animateFill();
+    
+      baseBeatsPerClick = beatsPerClick;
+      beatsPerClick = beatsPerClick * 2;
+
+      setTimeout(() => {
+        beatsPerClick = baseBeatsPerClick;
+        volumeKnob.classList.remove("disabled");
+        tempoKnob.classList.remove("disabled");
+        eqKnob.classList.remove("disabled");
+        doubleModeContainer.style.display = "none";
+        bassDropTimeout = false;
+      }, eqTime);
+
+    }, 1000);
 }
 
 autoScratchButton.addEventListener("click", () => {
@@ -276,8 +292,15 @@ function levelUp() {
   if (LevelUpIndex >= backgrounds.length) {
     LevelUpIndex = backgrounds.length - 1;
   }
-  
-  bgVideo.src = backgrounds[LevelUpIndex];
+
+  const videoSource = bgVideo.querySelector('source');
+  if (videoSource) {
+    videoSource.src = backgrounds[LevelUpIndex];
+  } else {
+    bgVideo.src = backgrounds[LevelUpIndex];
+  }
+  bgVideo.load();
+  bgVideo.play();
 
   if (LevelUpIndex >= music.length) {
     LevelUpIndex = music.length - 1;
@@ -292,8 +315,6 @@ function levelUp() {
   xpSlider.max = nextLevelXP;
   xpSlider.min = xp;
   nextLevelXp.textContent = `${nextLevelXP}xp`;
-
-  
 }
 
 function createTooltip(text, x, y) {

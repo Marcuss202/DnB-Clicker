@@ -31,24 +31,24 @@
           <div class="bigButtonCol">
             <button id="autoScratchButton" class="bigButton"><p>Auto scratch<br>(Auto Clicker)</p></button>
             <p id="autoScratchLevelText" class="bigButtonLvl">LVL 0</p>
-            <p id="autoScratchCost" class="bigButtonCost">100 Beats</p>
+            <p id="autoScratchCost" class="bigButtonCost">20 Beats</p>
           </div>
           <div class="bigButtonCol">
             <button id="bassDropButton" class="bigButton"><p>Bass Drop<br>(+1%)</p></button>
             <p id="bassDropLevelText" class="bigButtonLvl">LVL 1</p>
-            <p id="bassDropCost" class="bigButtonCost">100 Beats</p>
+            <p id="bassDropCost" class="bigButtonCost">20 Beats</p>
           </div>
         </div>
         <div class="bigButtonRow">
           <div class="bigButtonCol">
             <button class="bigButton"><p>Button 5</p></button>
             <p class="bigButtonLvl">LVL 1</p>
-            <p class="bigButtonCost2">100 Beats</p>
+            <p class="bigButtonCost2">0 Beats</p>
           </div>
           <div class="bigButtonCol">
             <button class="bigButton"><p>Button 6</p></button>
             <p class="bigButtonLvl">LVL 1</p>
-            <p class="bigButtonCost2">100 Beats</p>
+            <p class="bigButtonCost2">0 Beats</p>
           </div>
         </div>
       </div>
@@ -70,8 +70,8 @@
 
       <div class="sliderContainer flex">
         <p id="currentXp">0xp</p>
-        <input type="range" min="0" max="100" value="0" class="slider" id="xpSlider" disabled>
-        <p id="nextLevelXp">100xp</p>
+        <input type="range" min="0" max="15" value="0" class="slider" id="xpSlider" disabled>
+        <p id="nextLevelXp">15xp</p>
       </div>
       <p id="levelText">LVL 1</p>
       
@@ -112,7 +112,7 @@
       <div id="beats">0 Beats</div>
       <img src="./images-videos/broken-record-png.png" id="dj-button"></img>
 
-      <video autoplay loop playsinline disabled id="bgVideo">
+      <video autoplay loop playsinline id="bgVideo">
         <source src="./images-videos/BasementVideo.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
